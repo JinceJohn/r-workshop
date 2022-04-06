@@ -4,3 +4,28 @@ author: "Jince John"
 date: '2022-04-05'
 output: html_document
 ---
+```{r}
+library(tidyverse)
+library(readxl)
+```
+
+
+```{r}
+library(here)
+```
+
+```{r}
+ca_np <- read.csv(here("data", "ca_np.csv"))
+
+```
+```{r}
+names(ca_np)
+head(ca_np)
+```
+```{r}
+ci_np<- read_excel(here("data","ci_np.xlsx"))
+```
+```{r}
+ggplot(data=ci_np, aes(x=year, y=visitors))+geom_line()
+```
+
