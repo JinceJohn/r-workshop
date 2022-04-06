@@ -27,5 +27,35 @@ ci_np<- read_excel(here("data","ci_np.xlsx"))
 ```
 ```{r}
 ggplot(data=ci_np, aes(x=year, y=visitors))+geom_line()
+gg_base=ggplot(data=ci_np, aes(x=year, y=visitors))
+gg_base+geom_point()
+```
+```{r}
+gg_base+geom_point(
+  color = "purple",
+```
+
+
+```{r}
+gg_base + geom_point(
+  aes(size=visitors,
+      color=visitors),
+  alpha=0.5
+)
+```
+
+
+```{r}
+?pch
+```
+```{r}
+gg_base+geom_col(aes(fill=visitors))+theme_minimal()
+```
+```{r}
+gg_base+geom_line(color="purple") +
+  geom_point(color="orange", aes(size=year), alpha=0.5)
+```
+```{r}
+ggsave(here("figures","ni_graph.jpg"), dpi=180, width=8, height = 7)
 ```
 
