@@ -58,4 +58,38 @@ gg_base+geom_line(color="purple") +
 ```{r}
 ggsave(here("figures","ni_graph.jpg"), dpi=180, width=8, height = 7)
 ```
+```{r}
+ggplot(data = ca_np, aes(x = year, y = visitors, group = park_name)) +
+  geom_line(show.legend = FALSE) +
+  theme_light() + 
+  labs(x = "year", y = "annual visitors") +
+  facet_wrap(~ park_name)
+```
+```{r}
+library(tidyverse)
+library(readxl)
+library(here)
+
+```
+
+```{r}
+library(here)
+```
+```{r}
+ca_np <- read.csv(here("data","ca_np.csv"))
+ggplot(data=ca_np, aes(x=year, y=visitors, group =park_name))+ geom_line()
+ca_nn <- ggplot(data=ca_np, aes(x=year, y=visitors, group =park_name))
+ca_nn+ geom_line(show.legend = TRUE) +
+  theme_light() + 
+  labs(x = "year", y = "annual visitors") +
+  facet_wrap(~ park_name)
+```
+```{r}
+library(tidyverse)
+library(readxl)
+library(here)
+```
+```{r}
+ggplot(data=ca_np, aes(x=year, y=visitors, group =park_name))+ geom_line(aes(color= park_name))+geom_point(aes(color="green"))
+```
 

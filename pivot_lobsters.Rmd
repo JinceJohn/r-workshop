@@ -1,0 +1,66 @@
+---
+title: "pivot_lobsters"
+author: "Jince John"
+date: '2022-04-10'
+output: html_document
+---
+```{r}
+library(tidyverse)
+library(readxl)
+library(here)
+install.packages("devtools")
+devtools::install_github("ropensci/skimr")
+```
+```{r}
+install.packages("skimr")
+```
+```{r}
+library(skimr)
+install.packages("kableExtra")
+```
+```{r}
+library(kableExtra)
+```
+
+```{r}
+lobsters <- read_xlsx(here("data/lobsters2.xlsx"), skip = 4)
+```
+```{r}
+skimr::skim(lobsters)
+```
+```{r}
+lobsters %>% group_by(site,year) %>% summarise(count_by_year = n(), 
+                                               mean_size_mm= mean(size_mm)) 
+```
+```{r}
+site_year_summary <- lobsters %>% 
+  group_by(site, year) %>%
+  summarise(count_by_siteyear = n(),
+            mean_size_mm = mean(size_mm, na.rm =TRUE),
+            sd_size_mm = sd(size_mm, na.rm = TRUE))
+```
+
+```{r}
+lobsters %>%
+  mutate(size_m = size_mm / 1000)
+```
+“There are `r nrow(lobsters)` total lobsters included in this report.”
+```{r}
+site_year_summary <- lobsters %>% 
+  group_by(site, year) %>%
+  summarise(count_by_siteyear = n(),
+            mean_size_mm = mean(size_mm, na.rm =TRUE),
+            sd_size_mm = sd(size_mm, na.rm = TRUE),
+            median_size_mm = median(size_mm, na.rm = TRUE))
+ggplot(data = site_year_summary, aes(x=year, y= median_size_mm, color =site)) +
+  geom_line()
+
+```
+```{r}
+ggsave(here("figures", "lobsters_line.png"))
+
+```
+```{r}
+lobsters %>%
+  mutate((size_m =size_mm/1000)
+         ``
